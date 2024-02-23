@@ -1,0 +1,31 @@
+name: Test-release
+
+on:
+  workflow_dispatch:
+  # pull_request:
+  #   branches:
+  #     - b1
+  #     - master
+  #   types:
+  #     - opened
+  #     - synchronize
+  #     - closed
+
+jobs:
+  tag-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      # if: github-event.pull_request.base.ref == 'master'
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create tag
+        run: |
+          TAG_NAME="v${date +'%d%m%Y-%H%M%S'}"
+          git tag $TAG_NAME
+          echo "Created tag: $TAG_NAME"
+      
+      - name: Push tag
+        run: |
+          git push origin "${TAG_NAME}"
+          echo "$TAG_NAME tag pushed"
