@@ -29,5 +29,5 @@ jobs:
       
       - name: Push tag
         run: |
-          git push origin $(TAG_NAME)
+          git push origin $TAG_NAME
           echo "tag pushed"
