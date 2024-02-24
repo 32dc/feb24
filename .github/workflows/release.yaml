@@ -17,6 +17,9 @@ jobs:
       - name: Set tag name
         id: set_tag
         run: echo "TAG_NAME=v$(date +'%d%m%Y-%H%M%S')" >> $GITHUB_ENV
+      
+      - name: Debug tag_name
+        run: echo "tag_name=$TAG_NAME"
 
       - name: Create and Push tag
         run: |
