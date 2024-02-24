@@ -8,27 +8,35 @@ permissions:
 jobs:
   tag-and-push:
     runs-on: ubuntu-latest
+    outputs:
+      tag_name: ${{ steps.set_tag.outputs.tag_name }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set tag name
+        id: set_tag
+        run: echo "::set-output name=tag_name::v$(date +'%d%m%Y-%H%M%S')"
+
       - name: Create and Push tag
         run: |
-          TAG_NAME="v$(date +'%d%m%Y-%H%M%S')"
-          git tag $TAG_NAME
-          echo "Created tag: $TAG_NAME"
-          git push origin $TAG_NAME
-          echo "$TAG_NAME tag pushed"
-      
+          git tag ${{ steps.set_tag.outputs.tag_name }}
+          echo "Created tag: ${{ steps.set_tag.outputs.tag_name }}"
+          git push origin ${{ steps.set_tag.outputs.tag_name }}
+          echo "${{ steps.set_tag.outputs.tag_name }} tag pushed"
+
+  publish-release:
+    needs: tag-and-push
+    runs-on: ubuntu-latest
+    steps:
       - name: Publish Release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: $TAG_NAME
-          release_name: Release-$TAG_NAME
+          tag_name: ${{ needs.tag-and-push.outputs.tag_name }}
+          release_name: Release-${{ needs.tag-and-push.outputs.tag_name }}
           body: |
             Changes in this Release:
           draft: false
           prerelease: false
-          
