@@ -35,8 +35,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${TAG_NAME}
-          release_name: Release ${TAG_NAME}
+          tag_name: $TAG_NAME
+          release_name: Release-$TAG_NAME
           body: |
             Changes in this Release:
           draft: false
