@@ -10,7 +10,9 @@ on:
   #     - opened
   #     - synchronize
   #     - closed
-
+permissions:
+  contents: write
+  
 jobs:
   tag-and-push:
     runs-on: ubuntu-latest
@@ -21,11 +23,11 @@ jobs:
 
       - name: Create tag
         run: |
-          TAG_NAME="v${date +'%d%m%Y-%H%M%S'}"
+          TAG_NAME="v$(date +'%d%m%Y-%H%M%S')"
           git tag $TAG_NAME
           echo "Created tag: $TAG_NAME"
       
       - name: Push tag
         run: |
-          git push origin "${TAG_NAME}"
-          echo "$TAG_NAME tag pushed"
+          git push origin $(TAG_NAME)
+          echo "tag pushed"
