@@ -31,7 +31,7 @@ jobs:
           echo "$TAG_NAME tag pushed"
       
       - name: Publish Release
-        id: create_release
+        run: echo $TAG_NAME
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -42,3 +42,4 @@ jobs:
             Changes in this Release:
           draft: false
           prerelease: false
+          
