@@ -7,11 +7,11 @@ jobs:
   write-job:
     runs-on: ubuntu-latest
     outputs:
-      my_value: ${{ steps.generate.outputs.myvalue }}
+      my_value: ${{ steps.generate.outputs.my_value }}
     steps:
     - name: Generate value
       id: generate
-      run: echo "myvalue=hello" >> GITHUB_OUTPUT
+      run: echo "my_value=hello" >> GITHUB_OUTPUT
 
   read-job:
     runs-on: ubuntu-latest
@@ -19,4 +19,3 @@ jobs:
     steps:
       - name: Use value
         run: echo ${{ needs.write-job.outputs.my_value }}
-        
