@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Generate value
       id: generate
-      run: echo "myvalue=hello"
+      run: echo "myvalue=hello" >> GITHUB_OUTPUTS
     outputs:
       myvalue: ${{ steps.generate.outputs.myvalue }}
 
