@@ -19,9 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: write-job
     steps:
-      - name: Set up environment
-        run: echo "source .env" >> $GITHUB_ENV
       - name: Use value
-        run: echo "Value is $my_value"
+        run: |
+          echo "my_value=${{ needs.write-job.outputs.my_value }}" >> $GITHUB_ENV
+          echo "Value is $my_value"
         env:
           my_value: ${{ needs.write-job.outputs.my_value }}
