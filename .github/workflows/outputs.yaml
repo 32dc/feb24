@@ -18,5 +18,5 @@ jobs:
     needs: write-job
     steps:
       - name: Use value
-        run: echo ${{ steps.write-job.outputs.my_value }}
+        run: echo ${{ needs.write-job.outputs.my_value }}
         
