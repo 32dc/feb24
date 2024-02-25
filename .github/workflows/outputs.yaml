@@ -1,0 +1,22 @@
+name: Test outputs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  hello-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate value
+        run: |
+          echo $GITHUB_ENV
+          echo "MY_VALUE=hello" > $GITHUB_ENV
+
+      - name: Use value
+        run: echo $GITHUB_ENV
+      
+      - name: Use value2
+        run: |
+          echo $MY_VALUE  # Outputs "hello"
+          echo $GITHUB_ENV # Outputs all contents in the file
