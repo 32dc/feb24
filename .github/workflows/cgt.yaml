@@ -10,7 +10,7 @@ jobs:
       - name: Set Variable
         id: set_var
         run: |
-          echo "var1=good" >> $GITHUB_OUTPUT
+          echo "var1=alpha" >> $GITHUB_OUTPUT
     outputs:
       varx: ${{ steps.set_var.outputs.var1 }}
 
