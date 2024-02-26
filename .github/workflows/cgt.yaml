@@ -12,6 +12,7 @@ jobs:
       - name: Set Variable
         id: set_var
         run: |
+          echo $GITHUB_OUTPUT
           echo "var1=good" >> $GITHUB_OUTPUT
 
   mainjob2:
