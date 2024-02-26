@@ -11,7 +11,7 @@ jobs:
     steps:
     - name: Generate value
       id: generate
-      run: echo "myvalue=hello"
+      run: echo "myvalue=hello" >> $GITHUB_OUTPUT
   job2:
     runs-on: ubuntu-latest
     needs: job1
