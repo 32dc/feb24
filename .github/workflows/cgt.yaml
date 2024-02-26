@@ -4,20 +4,37 @@ on:
   workflow_dispatch:
 
 jobs:
-  mainjob1:
+  job1:
     runs-on: ubuntu-latest
-    steps:
-      - name: Set Variable
-        id: set_var
-        run: |
-          echo "var1=alpha" >> $GITHUB_OUTPUT
     outputs:
-      varx: ${{ steps.set_var.outputs.var1 }}
-
-  mainjob2:
-    needs: mainjob1
-    runs-on: ubuntu-latest
+      my_value: ${{ steps.generate.outputs.myvalue }}
     steps:
-      - name: Access Variable
-        run: |
-          echo "var1=${{ needs.mainjob1.outputs.varx }}"
+    - name: Generate value
+      id: generate
+      run: echo "myvalue=hello"
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+      - name: Use value
+        run: echo ${{ needs.job1.outputs.my_value }}  
+
+
+# jobs:
+#   mainjob1:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Set Variable
+#         id: set_var
+#         run: |
+#           echo "var1=alpha" >> $GITHUB_OUTPUT
+#     outputs:
+#       varx: ${{ steps.set_var.outputs.var1 }}
+
+#   mainjob2:
+#     needs: mainjob1
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Access Variable
+#         run: |
+#           echo "var1=${{ needs.mainjob1.outputs.varx }}"
