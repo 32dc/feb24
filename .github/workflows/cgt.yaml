@@ -13,7 +13,9 @@ jobs:
       id: generate
       run: |
         echo "my_value=hello" >> $GITHUB_ENV
-        echo "::set-output name=my_value::hello"
+        echo "my_value_output=hello" >> $GITHUB_ENV
+      env:
+        my_value_output: hello
 
   read-job:
     runs-on: ubuntu-latest
@@ -21,7 +23,6 @@ jobs:
     steps:
       - name: Use value
         run: |
-          echo "my_value=${{ needs.write-job.outputs.my_value }}" >> $GITHUB_ENV
-          echo "Value is $my_value"
+          echo "Value is $my_value_output"
         env:
-          my_value: ${{ needs.write-job.outputs.my_value }}
+          my_value_output: ${{ needs.write-job.outputs.my_value }}
