@@ -15,6 +15,7 @@ jobs:
     outputs:
       current_tag: ${{ steps.tag-diff.outputs.current_tag }}
       previous_tag: ${{ steps.tag-diff.outputs.previous_tag }}
+      diff_content: ${{ steps.tag-diff.outputs.diff_content }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -23,8 +24,6 @@ jobs:
 
       - name: Tag diff
         id: tag-diff
-        outputs:
-          diff_content: ${{ steps.tag-diff.outputs.diff_content }}
         run: |
           echo "Current Tag:"
           current_tag=$(git describe --tags --abbrev=0)
