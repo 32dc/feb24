@@ -2,6 +2,11 @@ name: Release with symver demo
 
 on:
   workflow_dispatch:
+    inputs:
+      tag_version:
+        description: 'Enter tag version'
+        required: true
+        default: '1.0.0'
 permissions:
   contents: write
 
@@ -9,25 +14,26 @@ jobs:
   tag-and-push:
     runs-on: ubuntu-latest
     outputs:
-      tag_name: ${{ steps.set_tag.outputs.tag_name }}
+      tag_ver: ${{ steps.set_tag.outputs.TAG_VER }}
     steps:
-    
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Set tag name
         id: set_tag
-        run: echo "TAG_NAME=v$(date +'%d%m%Y-%H%M%S')" >> $GITHUB_OUTPUT
+        run: |
+          echo "TAG_VER=${{ github.event.inputs.tag_version }}" >> $GITHUB_OUTPUT
+          # echo "TAG_NAME=v$(date +'%d%m%Y-%H%M%S')" >> $GITHUB_OUTPUT
       
       - name: Debug tag_name
-        run: echo "tag_name=$TAG_NAME"
+        run: echo "Tag Version=$TAG_VER"
 
       - name: Create and Push tag
         run: |
-          git tag $TAG_NAME
-          echo "Created tag: $TAG_NAME"
-          git push origin $TAG_NAME
-          echo "$TAG_NAME tag pushed"
+          git tag $TAG_VER
+          echo "Created tag: $TAG_VER"
+          git push origin $TAG_VER
+          echo "$TAG_VER tag pushed"
 
   publish-release:
     needs: tag-and-push
@@ -38,7 +44,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ needs.tag-and-push.outputs.tag_name }}
+          tag_name: ${{ needs.tag-and-push.outputs.tag_ver }}
           release_name: Release-${{ needs.tag-and-push.outputs.tag_name }}
           body: |
             Changes in this Release:
