@@ -1,4 +1,4 @@
-name: Tags diff - demo
+name: Tags - demo
 
 on:
   workflow_dispatch:
