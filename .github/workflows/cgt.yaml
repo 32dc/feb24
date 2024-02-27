@@ -1,4 +1,7 @@
-name: cgt outputs
+# Uses GITHUB_OUTPUT and 'outputs:' to store the env var in one job and then read that env var in another job
+# WORKED
+
+name: outputs demo
 
 on:
   workflow_dispatch:
@@ -19,7 +22,8 @@ jobs:
       - name: Use value
         run: echo ${{ needs.job1.outputs.my_value }}  
 
-
+# Another similar example
+#
 # jobs:
 #   mainjob1:
 #     runs-on: ubuntu-latest
