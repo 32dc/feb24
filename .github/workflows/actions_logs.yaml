@@ -23,5 +23,6 @@ jobs:
       - name: Get Latest Tag
         id: get_latest_tags
         run: |
+          echo ""
           echo "Current Commit: $(git rev-parse HEAD)"
           echo "Latest Tag: $(git describe --tags --abbrev=0)"
