@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 0 # Fetch all history for tags and history - (important)
 
       - name: Find Current and Previous Tags
-        id: tags
+        id: generate-tag-diff
         run: |
           echo "Current Tag:"
           current_tag=$(git describe --tags --abbrev=0)
@@ -47,5 +47,14 @@ jobs:
 
       - name: tag diff
         run: |
-          git diff ${{ steps.tags.outputs.current_tag }}..${{ steps.tags.outputs.previous_tag }}
+          # git diff ${{ steps.tags.outputs.current_tag }}..${{ steps.tags.outputs.previous_tag }}
+          if [ -z "$previous_tag" ] || [ -z "$current_tag" ]; then
+            echo "One of the tags is missing; cannot show diff."
+            diff_content="No previous tag found to compare."
+          else
+            diff_content=$(git diff $previous_tag $current_tag)
+          fi
+          
+          # Limit the diff content to avoid exceeding max comment length
+          diff_content=${diff_content:0:65000}
 
