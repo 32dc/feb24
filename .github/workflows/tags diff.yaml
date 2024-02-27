@@ -1,4 +1,4 @@
-name: Logs demo
+name: Tags diff - demo
 
 on:
   workflow_dispatch:
@@ -13,14 +13,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Fetch all history for all tags and branches
 
-      - name: Show Local Tags
+      - name: Show local tags
         run: git tag
 
       - name: Show Remote Tags
         run: git ls-remote --tags origin
 
-      - name: Get Latest Tag
+      - name: Get latest tag from branch
         id: get_latest_tags
         run: |
           # Fetch tags from the remote repository
@@ -32,6 +34,10 @@ jobs:
           
           # If the above command fails, try using the following
           latest_tag=$(git tag --points-at HEAD)
-
           echo "Latest Tag: $latest_tag"
-          echo "::set-output name=latest_tag::$latest_tag"
+      
+      - name: Get latest tag from master
+        run: |
+          git checkout master
+          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo "Latest Tag on Master: $latest_tag"
