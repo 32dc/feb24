@@ -3,7 +3,7 @@ name: Release with symver demo
 on:
   workflow_dispatch:
     inputs:
-      tag_version:
+      tag_ver:
         description: 'Enter tag version'
         required: true
         default: '1.0.0'
@@ -22,11 +22,12 @@ jobs:
       - name: Set tag name
         id: set_tag
         run: |
-          echo "TAG_VER=${{ github.event.inputs.tag_version }}" >> $GITHUB_OUTPUT
+          echo "TAG_VER=${{ github.event.inputs.tag_ver }}" >> $GITHUB_ENV
+          echo "TAG_VER=${{ github.event.inputs.tag_ver }}" >> $GITHUB_OUTPUT
           # echo "TAG_NAME=v$(date +'%d%m%Y-%H%M%S')" >> $GITHUB_OUTPUT
       
-      - name: Debug tag_name
-        run: echo "Tag Version=$TAG_VER"
+      # - name: Debug tag_name
+      #   run: echo "Tag Version=$TAG_VER"
 
       - name: Create and Push tag
         run: |
