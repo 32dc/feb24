@@ -1,27 +1,44 @@
-name: Test outputs
+# Uses GITHUB_OUTPUT and 'outputs:' to store the env var in one job and then read that env var in another job
+# WORKED
+
+name: outputs demo
 
 on:
   workflow_dispatch:
 
 jobs:
-  write-job:
+  job1:
     runs-on: ubuntu-latest
     outputs:
-      my_value: ${{ steps.generate.outputs.my_value }}
+      my_value: ${{ steps.generate.outputs.myvalue }}
     steps:
     - name: Generate value
       id: generate
-      run: |
-        echo "my_value=hello" >> $GITHUB_ENV
-        echo "::set-output name=my_value::hello"
-
-  read-job:
+      run: echo "myvalue=hello" >> $GITHUB_OUTPUT
+  job2:
     runs-on: ubuntu-latest
-    needs: write-job
+    needs: job1
     steps:
       - name: Use value
-        run: |
-          echo "my_value=${{ needs.write-job.outputs.my_value }}" >> $GITHUB_ENV
-          echo "Value is $my_value"
-        env:
-          my_value: ${{ needs.write-job.outputs.my_value }}
+        run: echo ${{ needs.job1.outputs.my_value }}  
+
+# Another similar example
+#
+# jobs:
+#   mainjob1:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Set Variable
+#         id: set_var
+#         run: |
+#           echo "var1=alpha" >> $GITHUB_OUTPUT
+#     outputs:
+#       varx: ${{ steps.set_var.outputs.var1 }}
+
+#   mainjob2:
+#     needs: mainjob1
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Access Variable
+#         run: |
+#           echo "var1=${{ needs.mainjob1.outputs.varx }}"
