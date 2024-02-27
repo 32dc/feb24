@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Generate value
       id: generate
-      run: echo "myvalue=hello" >> GITHUB_ENV
+      run: echo "myvalue=hello" >> GITHUB_OUTPUT
     outputs:
       myvalue: ${{ steps.generate.outputs.myvalue }}
 
@@ -18,4 +18,4 @@ jobs:
     needs: write-job
     steps:
     - name: Use value
-      run: echo ${{ needs.write-job.outputs.myvalue }}  
+      run: echo ${{ needs.write-job.outputs.myvalue }}
