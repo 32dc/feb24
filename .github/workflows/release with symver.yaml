@@ -22,12 +22,8 @@ jobs:
       - name: Set tag name
         id: set_tag
         run: |
-          echo "TAG_VER=${{ github.event.inputs.tag_ver }}" >> $GITHUB_ENV
+          # echo "TAG_VER=${{ github.event.inputs.tag_ver }}" >> $GITHUB_ENV
           echo "TAG_VER=${{ github.event.inputs.tag_ver }}" >> $GITHUB_OUTPUT
-          # echo "TAG_NAME=v$(date +'%d%m%Y-%H%M%S')" >> $GITHUB_OUTPUT
-      
-      # - name: Debug tag_name
-      #   run: echo "Tag Version=$TAG_VER"
 
       - name: Create and Push tag
         run: |
@@ -46,7 +42,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ needs.tag-and-push.outputs.tag_ver }}
-          release_name: Release-${{ needs.tag-and-push.outputs.tag_ver }}
+          release_name: ${{ needs.tag-and-push.outputs.tag_ver }}
           body: |
             Changes in this Release:
           draft: false
