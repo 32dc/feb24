@@ -23,6 +23,14 @@ jobs:
       - name: Get Latest Tag
         id: get_latest_tags
         run: |
-          echo ""
-          echo "Current Commit: $(git rev-parse HEAD)"
-          echo "Latest Tag: $(git describe --tags --abbrev=0)"
+          # Fetch tags from the remote repository
+          git fetch --tags
+
+          # Get the latest tag for the current commit
+          latest_tag=$(git describe --tags --abbrev=0 HEAD)
+          
+          # If the above command fails, try using the following
+          # latest_tag=$(git tag --points-at HEAD)
+
+          echo "Latest Tag: $latest_tag"
+          echo "::set-output name=latest_tag::$latest_tag"
