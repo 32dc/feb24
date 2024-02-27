@@ -23,6 +23,8 @@ jobs:
 
       - name: Tag diff
         id: tag-diff
+        outputs:
+          diff_content: ${{ steps.tag-diff.outputs.diff_content }}
         run: |
           echo "Current Tag:"
           current_tag=$(git describe --tags --abbrev=0)
@@ -40,7 +42,8 @@ jobs:
             echo "One of the tags is missing; cannot show diff."
             diff_content="No previous tag found to compare."
           else
-            git diff $previous_tag..$current_tag
+            diff_content=${git diff $previous_tag..$current_tag} >> $GITHUB_OUTPUT
+            echo $diff_content
           fi
           
           # Limit the diff content to avoid exceeding max comment length
@@ -58,5 +61,20 @@ jobs:
       # - name: tag diff
       #   run: |
           # git diff ${{ steps.tags.outputs.current_tag }}..${{ steps.tags.outputs.previous_tag }}
+
+      - name: Comment on PR
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const issue_number = context.issue.number;
+            const diff_content = `${{ steps.generate_diff.outputs.diff_content }}`;
+            const comment_body = `### Code Differences:\n\`\`\`diff\n${diff_content}\n\`\`\``;
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              body: comment_body
+            });
 
 
