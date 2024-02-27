@@ -47,5 +47,5 @@ jobs:
 
       - name: tag diff
         run: |
-          git diff ${{ steps.tags.outputs.current_tag }}..{{ steps.tags.outputs.previous_tag }}
+          git diff ${{ steps.tags.outputs.current_tag }}..${{ steps.tags.outputs.previous_tag }}
 
