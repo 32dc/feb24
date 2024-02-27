@@ -34,3 +34,4 @@ jobs:
           latest_tag=$(git tag --points-at HEAD)
 
           echo "Latest Tag: $latest_tag"
+          echo "::set-output name=latest_tag::$latest_tag"
