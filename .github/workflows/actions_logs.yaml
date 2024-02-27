@@ -27,7 +27,7 @@ jobs:
           git fetch --tags
 
           # Get the latest tag for the current commit
-          latest_tag=$(git describe --tags --abbrev=0 HEAD)
+          latest_tag=$(git describe --tags --abbrev=0 HEAD --always)
           
           # If the above command fails, try using the following
           # latest_tag=$(git tag --points-at HEAD)
