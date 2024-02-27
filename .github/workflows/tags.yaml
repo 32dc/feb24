@@ -6,19 +6,18 @@ permissions:
   contents: write
 
 jobs:
-  tag-and-push:
+  test-tags:
     runs-on: ubuntu-latest
     steps:
 
       - name: Checkout code
         uses: actions/checkout@v2
       
-      - name: Get Previous Tag
-        id: get_previous_tag
+      - name: Get Latest Tag
+        id: get_latest_tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "inside changelog..."
-          echo "previous_tag=$(git describe --tags --abbrev=0)"
+          echo "latest_tag=$(git describe --tags --abbrev=0)"
 
       
