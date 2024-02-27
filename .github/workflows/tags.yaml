@@ -1,0 +1,21 @@
+name: Release with symver demo
+
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+
+jobs:
+  tag-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Get Previous Tag
+        id: get_previous_tag
+        run: |
+          echo "inside changelog..."
+          echo "previous_tag=$(git describe --tags --abbrev=0)"
+
+      
