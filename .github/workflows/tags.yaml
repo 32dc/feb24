@@ -1,4 +1,4 @@
-name: Release with symver demo
+name: Tags demo
 
 on:
   workflow_dispatch:
@@ -9,11 +9,14 @@ jobs:
   tag-and-push:
     runs-on: ubuntu-latest
     steps:
+
       - name: Checkout code
         uses: actions/checkout@v2
       
       - name: Get Previous Tag
         id: get_previous_tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "inside changelog..."
           echo "previous_tag=$(git describe --tags --abbrev=0)"
