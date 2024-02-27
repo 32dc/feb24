@@ -61,12 +61,13 @@ jobs:
             echo "One of the tags is missing; cannot show diff."
             diff_content="No previous tag found to compare."
           else
-            diff_content=git diff $previous_tag $current_tag
-            echo $diff_content
+            # diff_content=git diff $previous_tag $current_tag
+            # echo $diff_content
+            echo "else"
           fi
           
           # Limit the diff content to avoid exceeding max comment length
-          diff_content=${diff_content:0:65000}
+          # diff_content=${diff_content:0:65000}
           # git diff ${{ steps.tags.outputs.current_tag }}..${{ steps.tags.outputs.previous_tag }}
 
       # - name: Comment on PR
