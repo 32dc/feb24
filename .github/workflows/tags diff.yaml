@@ -30,7 +30,7 @@ jobs:
 
           # Get the latest tag for the current commit
           # Showing the SHA (NOT USEFUL) - so using the next command
-          # latest_tag=$(git describe --tags --abbrev=0 HEAD --always)
+          latest_tag=$(git describe --tags --abbrev=0 HEAD --always)
           
           # Using the below as the above command failed
           latest_tag=$(git tag --points-at HEAD)
