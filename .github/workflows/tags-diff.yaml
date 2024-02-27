@@ -15,7 +15,7 @@ jobs:
     outputs:
       current_tag: ${{ steps.tag-diff.outputs.current_tag }}
       previous_tag: ${{ steps.tag-diff.outputs.previous_tag }}
-      diff_content: ${{ steps.tag-diff.outputs.diff_content }}
+      # diff_content: ${{ steps.tag-diff.outputs.diff_content }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -41,7 +41,7 @@ jobs:
             echo "One of the tags is missing; cannot show diff."
             diff_content="No previous tag found to compare."
           else
-            diff_content=${git diff $previous_tag..$current_tag} >> $GITHUB_OUTPUT
+            diff_content=${git diff $previous_tag $current_tag}
             echo $diff_content
           fi
           
