@@ -41,3 +41,8 @@ jobs:
       #   run: |
       #     echo "Current Tag: ${{ steps.tags.outputs.current_tag }}"
       #     echo "Previous Tag: ${{ steps.tags.outputs.previous_tag }}"
+
+      - name: tag diff
+        run: |
+          git diff $current_tag..$previous_tag
+
