@@ -50,9 +50,6 @@ jobs:
           draft: false
           prerelease: false
           
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Get Previous Tag
         id: get_previous_tag
         run: |
