@@ -27,7 +27,7 @@ jobs:
           
           echo "Previous Tag:"
           previous_tag=$(git tag --sort=-v:refname | grep -A1 $current_tag | tail -1)
-          # Ensure it's not outputting the current tag as previous in case of no previous tag
+          # Ensure it's not outputting the current tag as previous (if no previous tag exists)
           if [ "$previous_tag" == "$current_tag" ]; then
             previous_tag=""
           fi
@@ -37,7 +37,7 @@ jobs:
           # echo "::set-output name=previous_tag::$previous_tag"
 
       # Example of using the output
-      - name: Echo Tags
-        run: |
-          echo "Current Tag: ${{ steps.tags.outputs.current_tag }}"
-          echo "Previous Tag: ${{ steps.tags.outputs.previous_tag }}"
+      # - name: Echo Tags
+      #   run: |
+      #     echo "Current Tag: ${{ steps.tags.outputs.current_tag }}"
+      #     echo "Previous Tag: ${{ steps.tags.outputs.previous_tag }}"
