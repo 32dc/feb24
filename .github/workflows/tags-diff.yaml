@@ -61,9 +61,9 @@ jobs:
             echo "One of the tags is missing; cannot show diff."
             diff_content="No previous tag found to compare."
           else
-            # diff_content=git diff $previous_tag $current_tag
-            # echo $diff_content
             echo "else"
+            diff_content=${git diff $current_tag..$previous_tag}
+            echo $diff_content
           fi
           
           # Limit the diff content to avoid exceeding max comment length
