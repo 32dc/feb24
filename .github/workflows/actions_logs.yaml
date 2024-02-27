@@ -8,7 +8,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  test-tags:
+  show-tags:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -27,10 +27,10 @@ jobs:
           git fetch --tags
 
           # Get the latest tag for the current commit
-          latest_tag=$(git describe --tags --abbrev=0 HEAD --always)
+          # latest_tag=$(git describe --tags --abbrev=0 HEAD --always)
           
           # If the above command fails, try using the following
-          # latest_tag=$(git tag --points-at HEAD)
+          latest_tag=$(git tag --points-at HEAD)
 
           echo "Latest Tag: $latest_tag"
           echo "::set-output name=latest_tag::$latest_tag"
