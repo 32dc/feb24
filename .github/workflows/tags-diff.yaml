@@ -10,7 +10,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  tags:
+  tag-diff:
     runs-on: ubuntu-latest
     outputs:
       current_tag: ${{ steps.tags.outputs.current_tag }}
@@ -36,18 +36,6 @@ jobs:
           fi
           echo $previous_tag
 
-          echo "current_tag=$current_tag" >> $GITHUB_OUTPUT
-          echo "previous_tag=$previous_tag" >> $GITHUB_OUTPUT
-
-      # Example of using the output
-      # - name: Echo Tags
-      #   run: |
-      #     echo "Current Tag: ${{ steps.tags.outputs.current_tag }}"
-      #     echo "Previous Tag: ${{ steps.tags.outputs.previous_tag }}"
-
-      - name: tag diff
-        run: |
-          # git diff ${{ steps.tags.outputs.current_tag }}..${{ steps.tags.outputs.previous_tag }}
           if [ -z "$previous_tag" ] || [ -z "$current_tag" ]; then
             echo "One of the tags is missing; cannot show diff."
             diff_content="No previous tag found to compare."
@@ -57,4 +45,18 @@ jobs:
           
           # Limit the diff content to avoid exceeding max comment length
           diff_content=${diff_content:0:65000}
+
+          echo "current_tag=$current_tag" >> $GITHUB_OUTPUT
+          echo "previous_tag=$previous_tag" >> $GITHUB_OUTPUT
+
+      # Example of using the output
+      # - name: Echo Tags
+      #   run: |
+      #     echo "Current Tag: ${{ steps.tags.outputs.current_tag }}"
+      #     echo "Previous Tag: ${{ steps.tags.outputs.previous_tag }}"
+
+      # - name: tag diff
+      #   run: |
+          # git diff ${{ steps.tags.outputs.current_tag }}..${{ steps.tags.outputs.previous_tag }}
+
 
