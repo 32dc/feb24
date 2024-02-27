@@ -58,13 +58,13 @@ jobs:
         run: |
           echo "inside changelog..."
           echo "previous_tag=$(git describe --tags --abbrev=0)"
-      - name: Generate Changelog
-        id: generate_changelog
-        run: |
-          # Assuming your changelog format is based on commit messages
-          changelog=$(git log --pretty=format:"- %s" "${{ steps.get_previous_tag.outputs.previous_tag }}"..HEAD)
-          echo "$changelog" > changelog.md
-          echo changelog.md
+      # - name: Generate Changelog
+      #   id: generate_changelog
+      #   run: |
+      #     # Assuming your changelog format is based on commit messages
+      #     changelog=$(git log --pretty=format:"- %s" "${{ steps.get_previous_tag.outputs.previous_tag }}"..HEAD)
+      #     echo "$changelog" > changelog.md
+      #     echo changelog.md
       
     
   
