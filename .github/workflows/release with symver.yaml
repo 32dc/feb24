@@ -34,6 +34,9 @@ jobs:
   publish-release:
     needs: tag-and-push
     runs-on: ubuntu-latest
+    outputs:
+      previous_tag: ${{ steps.get_previous_tag.outputs.previous_tag }}
+
     steps:
       - name: Publish Release
         uses: actions/create-release@v1
@@ -47,12 +50,6 @@ jobs:
           draft: false
           prerelease: false
           
-  change-log:
-    needs: publish-release
-    runs-on: ubuntu-latest
-    outputs:
-      previous_tag: ${{ steps.get_previous_tag.outputs.previous_tag }}
-    steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
