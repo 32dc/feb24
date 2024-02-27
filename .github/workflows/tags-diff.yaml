@@ -61,7 +61,7 @@ jobs:
             echo "One of the tags is missing; cannot show diff."
             diff_content="No previous tag found to compare."
           else
-            diff_content=${git diff $previous_tag $current_tag}
+            diff_content=git diff $previous_tag $current_tag
             echo $diff_content
           fi
           
