@@ -49,6 +49,8 @@ jobs:
   tag-diff:
     runs-on: ubuntu-latest
     needs: tags
+    outputs:
+      diff_content: ${{ steps.tag-diff.outputs.diff_content }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -56,6 +58,7 @@ jobs:
           fetch-depth: 0 # Fetch all history for tags and history - (important)
     
       - name: tag diff
+        id: tag-diff
         run: |
           previous_tag=${{ needs.tags.outputs.previous_tag }}
           current_tag=${{ needs.tags.outputs.current_tag }}
