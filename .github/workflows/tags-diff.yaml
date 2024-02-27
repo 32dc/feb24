@@ -62,8 +62,8 @@ jobs:
             diff_content="No previous tag found to compare."
           else
             echo "else"
-            diff_content: ${git diff $current_tag $previous_tag}
-            echo $diff_content
+            git diff $current_tag $previous_tag > diff_content
+            cat diff_content
           fi
           
           # Limit the diff content to avoid exceeding max comment length
