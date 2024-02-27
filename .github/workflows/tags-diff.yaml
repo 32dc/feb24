@@ -1,0 +1,43 @@
+name: Tags-diff - demo
+
+on:
+  workflow_dispatch:
+  
+permissions:
+  contents: read
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  tags:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Fetch all history for tags and history - (important)
+
+      - name: Find Current and Previous Tags
+        id: tags
+        run: |
+          echo "Current Tag:"
+          current_tag=$(git describe --tags --abbrev=0)
+          echo $current_tag
+          
+          echo "Previous Tag:"
+          previous_tag=$(git tag --sort=-v:refname | grep -A1 $current_tag | tail -1)
+          # Ensure it's not outputting the current tag as previous in case of no previous tag
+          if [ "$previous_tag" == "$current_tag" ]; then
+            previous_tag=""
+          fi
+          echo $previous_tag
+
+          # echo "::set-output name=current_tag::$current_tag"
+          # echo "::set-output name=previous_tag::$previous_tag"
+
+      # Example of using the output
+      - name: Echo Tags
+        run: |
+          echo "Current Tag: ${{ steps.tags.outputs.current_tag }}"
+          echo "Previous Tag: ${{ steps.tags.outputs.previous_tag }}"
