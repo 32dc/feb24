@@ -1,0 +1,27 @@
+name: Logs demo
+
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  test-tags:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Show Local Tags
+        run: git tag
+
+      - name: Show Remote Tags
+        run: git ls-remote --tags origin
+
+      - name: Get Latest Tag
+        id: get_latest_tags
+        run: |
+          echo "Current Commit: $(git rev-parse HEAD)"
+          echo "Latest Tag: $(git describe --tags --abbrev=0)"
