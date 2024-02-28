@@ -39,13 +39,7 @@ jobs:
 
           echo "current_tag=$current_tag" >> $GITHUB_OUTPUT
           echo "previous_tag=$previous_tag" >> $GITHUB_OUTPUT
-
-      # Example of using the output
-      # - name: Echo Tags
-      #   run: |
-      #     echo "Current Tag: ${{ steps.tags.outputs.current_tag }}"
-      #     echo "Previous Tag: ${{ steps.tags.outputs.previous_tag }}"
-      
+  
   tag-diff:
     runs-on: ubuntu-latest
     needs: tags-info
