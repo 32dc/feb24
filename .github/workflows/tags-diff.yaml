@@ -99,6 +99,4 @@ jobs:
             } else {
               console.log("Not a pull request event. Skipping comment.");
             }
-
-
-
+            
