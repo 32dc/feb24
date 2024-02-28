@@ -83,7 +83,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const issue_number = context.issue.number;
+            const issue_number = context.payload.pull_request.number;
             const diff_content = `${{ steps.tag_diff.outputs.diff_content }}`;
             const comment_body = `### Code Differences:\n\`\`\`diff\n${diff_content}\n\`\`\``;
             github.rest.issues.createComment({
