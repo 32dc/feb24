@@ -87,7 +87,7 @@ jobs:
       
             if (pullRequest) {
               const issue_number = pullRequest.number;
-              const diff_content = "${{ steps.tag_diff.outputs.diff_content }}";
+              const diff_content = $diff_content;
               const comment_body = `### Code Differences:\n\`\`\`diff\n${diff_content}\n\`\`\``;
       
               github.rest.issues.createComment({
