@@ -1,7 +1,10 @@
 name: Tags-diff - demo
 
 on:
-  workflow_dispatch:
+  # workflow_dispatch:
+  push:
+    branches:
+      - bgb
   
 permissions:
   contents: read
