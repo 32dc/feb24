@@ -86,7 +86,8 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const pullRequest = github.context.payload && github.context.payload.pull_request;
+            const event_name = github.context.eventName;
+            const pullRequest = event_name === 'pull_request' ? github.context.payload.pull_request : null;
       
             if (pullRequest) {
               const issue_number = pullRequest.number;
