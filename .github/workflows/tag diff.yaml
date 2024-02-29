@@ -16,20 +16,30 @@ env:
 jobs:
   release-info:
     runs-on: ubuntu-latest
+  outputs:
+    latest_release = ${{ steps.latest_release.outputs.result }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Get Latest Release
-        uses: actions/list-releases@v3
+        id: latest_release
+        uses: actions/github-script@v4
         with:
-          owner: ${{ github.repository_owner }}
-          repo: ${{ github.repository }}
-
-      - name: Print Latest Release Tag
-        if: steps.get_latest_release.outputs.length > 0
-        run: |
-          echo "Latest Release Tag: ${{ steps.get_latest_release.outputs[0].tag_name }}"
+          script: |
+            const response = await github.repos.getLatestRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+  
+            console.log(`Latest Release: ${response.data.tag_name}`);
+            return { result: response.data.tag_name };
+  
+      - name: Print Latest Release
+        run: echo "Latest Release stored in output= ${{ needs.get-latest-release.outputs.result }}"
+  
+      - name: Use Latest Release
+        run: echo "Using Latest Release= ${{ needs.get-latest-release.outputs.result }}"
 
 
       
