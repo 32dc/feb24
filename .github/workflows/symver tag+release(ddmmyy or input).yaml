@@ -3,7 +3,7 @@
 # Release format = Release-<tag>
 # WORKED
 
-name: Release with symver demo
+name: SymVer Tag (User Input) & Release - demo
 
 on:
   workflow_dispatch:
@@ -75,7 +75,7 @@ jobs:
 # Release format = Release-<tag>
 # WORKED
 
-# name: Release demo
+# name: SymVer Tag (ddmmyy-hhmmss) & Release - demo
 
 # on:
 #   workflow_dispatch:
