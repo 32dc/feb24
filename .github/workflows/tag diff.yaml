@@ -21,31 +21,17 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Get Latest Release
-        id: latest_release
-        uses: actions/github-script@v4
+        uses: actions/list-releases@v2
         with:
-          script: |
-            const response = await github.repos.getLatestRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            });
-  
-            console.log(`Latest Release: ${response.data.tag_name}`);
-            echo "::set-env name=LATEST_RELEASE::${response.data.tag_name}";
-            echo "LATEST_RELEASE=${response.data.tag_name}" >> $GITHUB_ENV;
-            return { result: response.data.tag_name };
-  
-      - name: Print Latest Release
-        run: echo "Latest Release stored in variable= $LATEST_RELEASE"
-  
-      - name: Use Latest Release
-        run: echo "Using Latest Release= $LATEST_RELEASE"
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.repository }}
 
-    # - name: Print Latest Release
-    #   run: echo "Latest Release stored in variable: env.$LATEST_RELEASE"
+      - name: Print Latest Release Tag
+        if: steps.get_latest_release.outputs.length > 0
+        run: |
+          echo "Latest Release Tag: ${{ steps.get_latest_release.outputs[0].tag_name }}"
 
-    # - name: Use Latest Release
-    #   run: echo "Using Latest Release: env.$LATEST_RELEASE"
+
       
     # - name: Get Latest Release
     #   id: latest_release
@@ -60,8 +46,7 @@ jobs:
     #       return { result: response.data.tag_name };
     #       process.env.LATEST_RELEASE = response.data.tag_name;
 
-    # - name: Print Latest Release
-    #   run: echo "Latest Release stored in variable= $LATEST_RELEASE"
+
 
   tags-info: 
     runs-on: ubuntu-latest
