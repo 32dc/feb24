@@ -16,8 +16,6 @@ env:
 jobs:
   release-info:
     runs-on: ubuntu-latest
-  env:
-      LATEST_RELEASE: ""
   steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -33,14 +31,15 @@ jobs:
           });
 
           console.log(`Latest Release: ${response.data.tag_name}`);
-          process.env.LATEST_RELEASE = response.data.tag_name;
+          echo "::set-env name=LATEST_RELEASE::${response.data.tag_name}";
+          echo "LATEST_RELEASE=${response.data.tag_name}" >> $GITHUB_ENV;
           return { result: response.data.tag_name };
 
     - name: Print Latest Release
-      run: echo "Latest Release stored in variable: ${{ env.LATEST_RELEASE }}"
+      run: echo "Latest Release stored in variable= $LATEST_RELEASE"
 
     - name: Use Latest Release
-      run: echo "Using Latest Release: ${{ env.LATEST_RELEASE }}"
+      run: echo "Using Latest Release= $LATEST_RELEASE"
 
     # - name: Print Latest Release
     #   run: echo "Latest Release stored in variable: env.$LATEST_RELEASE"
