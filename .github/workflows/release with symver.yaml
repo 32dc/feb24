@@ -1,3 +1,8 @@
+# Prompts for tag, creates it, pushes a tag + create a release
+# Tag format = v<user-input>
+# Release format = Release-<tag>
+# WORKED
+
 name: Release with symver demo
 
 on:
@@ -55,6 +60,7 @@ jobs:
         run: |
           echo "inside changelog..."
           echo "previous_tag=$(git describe --tags --abbrev=0)"
+          
       # - name: Generate Changelog
       #   id: generate_changelog
       #   run: |
@@ -63,11 +69,10 @@ jobs:
       #     echo "$changelog" > changelog.md
       #     echo changelog.md
       
-    
-  
-
 #================================================================================
-# Below workflow creates, pushes a tag + create a release
+# Creates, pushes a tag + create a release
+# Tag format = vddmmyy-hhmmss
+# Release format = Release-<tag>
 # WORKED
 
 # name: Release demo
