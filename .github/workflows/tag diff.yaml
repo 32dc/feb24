@@ -44,8 +44,8 @@ jobs:
     # - name: Print Latest Release
     #   run: echo "Latest Release stored in variable: env.$LATEST_RELEASE"
 
-    - name: Use Latest Release
-      run: echo "Using Latest Release: env.$LATEST_RELEASE"
+    # - name: Use Latest Release
+    #   run: echo "Using Latest Release: env.$LATEST_RELEASE"
       
     # - name: Get Latest Release
     #   id: latest_release
