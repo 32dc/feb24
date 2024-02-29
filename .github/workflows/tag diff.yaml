@@ -14,6 +14,24 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
+  release-info:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get Latest Release
+      id: latest_release
+      uses: actions/github-script@v4
+      with:
+        script: |
+          const response = await github.repos.getLatestRelease({
+            owner: context.repo.owner,
+            repo: context.repo.repo
+          });
+          console.log(`Latest Release: ${response.data.tag_name}`);
+          return { result: response.data.tag_name };
+
+    # - name: Print Latest Release
+    #   run: echo "Latest Release: ${{ steps.latest_release.outputs.result }}"
+
   tags-info:
     runs-on: ubuntu-latest
     outputs:
