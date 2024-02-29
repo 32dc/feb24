@@ -28,11 +28,12 @@ jobs:
           });
           console.log(`Latest Release: ${response.data.tag_name}`);
           return { result: response.data.tag_name };
+          process.env.LATEST_RELEASE = response.data.tag_name;
 
-    # - name: Print Latest Release
-    #   run: echo "Latest Release: ${{ steps.latest_release.outputs.result }}"
+    - name: Print Latest Release
+      run: echo "Latest Release stored in variable= $LATEST_RELEASE"
 
-  tags-info:
+  tags-info: 
     runs-on: ubuntu-latest
     outputs:
       current_tag: ${{ steps.get-tags.outputs.current_tag }}
