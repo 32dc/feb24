@@ -1,11 +1,11 @@
 name: Tag-diff - demo
 
 on:
-  # workflow_dispatch:
-  push:
-    branches:
-      - "*"
-      - master
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - "*"
+  #     - master
   
 permissions:
   contents: read
