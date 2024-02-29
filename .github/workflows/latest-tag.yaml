@@ -1,4 +1,6 @@
-name: Tags - demo
+# Fetches latest tag and displays it
+
+name: Latest Tag - demo
 
 on:
   workflow_dispatch:
