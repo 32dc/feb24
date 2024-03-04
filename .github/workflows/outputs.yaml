@@ -4,7 +4,10 @@
 name: outputs demo
 
 on:
-  workflow_dispatch:
+  # workflow_dispatch:
+  push:
+    tags:
+      - "v*"
 
 jobs:
   job1:
@@ -20,7 +23,8 @@ jobs:
     needs: job1
     steps:
       - name: Use value
-        run: echo ${{ needs.job1.outputs.my_value }}  
+        run: echo ${{ needs.job1.outputs.my_value }}
+
 
 # Another similar example
 #
