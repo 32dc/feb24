@@ -26,5 +26,5 @@ jobs:
         echo "${{ github.event_name }}"
         PR_NUMBER=${{ github.event.pull_request.number }}
         echo "PR_NUM= $PR_NUMBER"
-        git fetch origin '+refs/pull/${PR_NUMBER}/head:refs/remotes/origin/pr/${PR_NUMBER}'
+        git fetch origin '+refs/pull/17/head:refs/remotes/origin/pr/17'
     
