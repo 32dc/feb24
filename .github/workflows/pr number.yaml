@@ -1,13 +1,9 @@
 name: PR number test
-
 on:
   workflow_dispatch:
-
 permissions: write-all
-
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   check-pr:
     runs-on: ubuntu-latest
@@ -26,4 +22,3 @@ jobs:
         echo $PR_NUMBER
         # git fetch origin '+refs/pull/${PR_NUMBER}/head:refs/remotes/origin/pr/${PR_NUMBER}'
     
-  
