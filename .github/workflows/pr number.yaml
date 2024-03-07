@@ -1,0 +1,30 @@
+name: PR number test
+on:
+  pull_request:
+    branches:
+      - '*'
+    types:
+      - opened
+      - synchronize
+permissions: write-all
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+jobs:
+  check-pr:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+      # with:
+      #   fetch-depth: 0 # Fetch all history for accurate diffs
+
+    - name: Get PR
+      id: get_pr
+      run: |
+        echo "target_branch= ${{ github.base_ref }}"
+        echo "current_branch= ${{ github.head_ref }}"
+        echo "${{ github.event_name }}"
+        PR_NUMBER=${{ github.event.pull_request.number }}
+        echo "PR_NUM= $PR_NUMBER"
+        git fetch origin '+refs/pull/${{ github.event.pull_request.number }}/head:refs/remotes/origin/pr/${{ github.event.pull_request.number }}'
+    
