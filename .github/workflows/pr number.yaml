@@ -17,8 +17,8 @@ jobs:
       with:
         fetch-depth: 0 # Fetch all history for accurate diffs
 
-    - name: Detect folders changed
-      id: folders_changed
+    - name: Get PR
+      id: get_pr
       run: |
         echo "target_branch= ${{ github.base_ref }}"
         echo "current_branch= ${{ github.head_ref }}"
