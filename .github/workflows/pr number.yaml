@@ -15,8 +15,8 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-      with:
-        fetch-depth: 0 # Fetch all history for accurate diffs
+      # with:
+      #   fetch-depth: 0 # Fetch all history for accurate diffs
 
     - name: Get PR
       id: get_pr
