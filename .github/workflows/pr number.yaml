@@ -25,7 +25,5 @@ jobs:
         echo "current_branch= ${{ github.head_ref }}"
         echo "${{ github.event_name }}"
         echo "${{ github.event.pull_request.number }}"
-        # PR_NUMBER=$(echo "${{ github.event_name }}" | jq '.pull_request.number')
-        # echo $PR_NUMBER
-        # git fetch origin '+refs/pull/${PR_NUMBER}/head:refs/remotes/origin/pr/${PR_NUMBER}'
+        git fetch origin '+refs/pull/${PR_NUMBER}/head:refs/remotes/origin/pr/${PR_NUMBER}'
     
